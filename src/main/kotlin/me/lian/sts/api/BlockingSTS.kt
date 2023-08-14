@@ -53,6 +53,11 @@ class BlockingSTS(
         get() = tcpConnection ?: throw NotInitializedException
 
     /**
+     * The time handler
+     */
+    private var timeHandler: TimeHandler? = null
+
+    /**
      * Checks if this class is initialized.
      */
     val isInitialized: Boolean
@@ -117,7 +122,10 @@ class BlockingSTS(
      * @see TimeHandler
      * @see getTime
      */
-    fun getTimeHandler() = TimeHandler(getTime(), System.currentTimeMillis())
+    fun getTimeHandler(): TimeHandler {
+        if (timeHandler == null) timeHandler = TimeHandler(getTime(), System.currentTimeMillis())
+        return timeHandler!!
+    }
 
     /**
      * Gets information about the simulator.
