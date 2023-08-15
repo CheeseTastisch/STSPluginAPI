@@ -1,5 +1,7 @@
 package me.lian.sts.api
 
+import me.lian.sts.data.Status
+import me.lian.sts.data.debug.DebugRequest
 import me.lian.sts.data.event.Event
 import me.lian.sts.data.event.EventType
 import me.lian.sts.data.facility.FacilityLayout
@@ -116,6 +118,16 @@ class CompletableSTS(
         threadPool?.shutdown()
         threadPool = null
     }
+
+    /**
+     * Set the debug mode.
+     *
+     * It is not clear yet, what this mode does.
+     *
+     * @param debug Whether to enable the debug mode.
+     * @return The status of the debug mode.
+     */
+    fun setDebug(debug: Boolean) = asyncCall { blockingSTS.setDebug(debug) }
 
     /**
      * Request the time in game of the STS.

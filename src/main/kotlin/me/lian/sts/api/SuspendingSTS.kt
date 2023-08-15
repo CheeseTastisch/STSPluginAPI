@@ -80,6 +80,16 @@ class SuspendingSTS(
     suspend fun disconnect() = suspendingCall { blockingSTS.disconnect() }
 
     /**
+     * Set the debug mode.
+     *
+     * It is not clear yet, what this mode does.
+     *
+     * @param debug Whether to enable the debug mode.
+     * @return The status of the debug mode.
+     */
+    suspend fun setDebug(debug: Boolean) = suspendingCall { blockingSTS.setDebug(debug) }
+
+    /**
      * Request the time in game of the STS.
      *
      * This will always send a request to the plugin api.
