@@ -91,7 +91,7 @@ class BlockingSTS(
     fun connect() {
         tcpConnection = TcpConnection(host)
         tcpConnection!!.connect()
-        tcpConnection!!.send(RegisterRequest(name, author, version, 1, description))
+        tcpConnection!!.send(RegisterRequest(name, author, version, 2, description))
 
         val response = tcpConnection!!.receive()
         if (response !is Status) throw RegisterException("Expected status response, got ${response::class.simpleName}.")
