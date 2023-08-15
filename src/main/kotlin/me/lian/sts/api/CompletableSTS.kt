@@ -7,6 +7,7 @@ import me.lian.sts.data.event.EventType
 import me.lian.sts.data.facility.FacilityLayout
 import me.lian.sts.data.heat.Heat
 import me.lian.sts.data.platform.Platform
+import me.lian.sts.data.stitz.StiTz
 import me.lian.sts.data.system.SystemInformation
 import me.lian.sts.data.time.Time
 import me.lian.sts.data.timetable.Timetable
@@ -175,6 +176,17 @@ class CompletableSTS(
      * @see Platform
      */
     fun getPlatforms() = asyncCall { blockingSTS.getPlatforms() }
+
+    /**
+     * Gets information about the StiTz.
+     *
+     * The StiTz is the Stellwerksim internal telephone network (_Stellwerksim internes Telefonnetz_).
+     *
+     * @return The StiTz information.
+     *
+     * @see StiTz
+     */
+    fun getStiTz() = asyncCall { blockingSTS.getStiTz() }
 
     /**
      * Gets information about the simulator.

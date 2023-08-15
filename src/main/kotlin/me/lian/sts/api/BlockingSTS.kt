@@ -13,6 +13,8 @@ import me.lian.sts.data.platform.Platform
 import me.lian.sts.data.platform.PlatformList
 import me.lian.sts.data.platform.PlatformListRequest
 import me.lian.sts.data.register.RegisterRequest
+import me.lian.sts.data.stitz.StiTz
+import me.lian.sts.data.stitz.StiTzRequest
 import me.lian.sts.data.system.SystemInformation
 import me.lian.sts.data.system.SystemInformationRequest
 import me.lian.sts.data.time.Time
@@ -200,6 +202,25 @@ class BlockingSTS(
         return when (response) {
             is Status -> handleStatus(response)
             else -> (response as PlatformList).platforms
+        }
+    }
+
+    /**
+     * Gets information about the StiTz.
+     *
+     * The StiTz is the Stellwerksim internal telephone network (_Stellwerksim internes Telefonnetz_).
+     *
+     * @return The StiTz information.
+     *
+     * @see StiTz
+     */
+    fun getStiTz(): StiTz {
+        connection.send(StiTzRequest)
+
+        val response = connection.receive { it is Status || it is StiTz }
+        return when (response) {
+            is Status -> handleStatus(response)
+            else -> response as StiTz
         }
     }
 
