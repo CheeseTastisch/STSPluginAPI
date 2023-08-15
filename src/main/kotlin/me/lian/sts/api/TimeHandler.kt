@@ -1,6 +1,7 @@
 package me.lian.sts.api
 
-import me.lian.sts.data.Time
+import me.lian.sts.data.time.Time
+
 
 /**
  * The [TimeHandler] is used to get the time in the simulation without needing to make a request every time.
@@ -12,7 +13,10 @@ import me.lian.sts.data.Time
  * @property timeReceived The time the [time] was received.
  */
 @Suppress("unused", "MemberVisibilityCanBePrivate")
-class TimeHandler(private val time: Time, private val timeReceived: Long) {
+class TimeHandler(
+    private val time: Time,
+    private val timeReceived: Long,
+) {
 
     /**
      * The base time to calculate the time in the simulation.

@@ -1,8 +1,27 @@
 package me.lian.sts.api
 
-import me.lian.sts.data.*
-import me.lian.sts.data.RegisterRequest
-import me.lian.sts.data.TimeRequest
+import me.lian.sts.data.Status
+import me.lian.sts.data.event.Event
+import me.lian.sts.data.event.EventRequest
+import me.lian.sts.data.event.EventType
+import me.lian.sts.data.facility.FacilityLayout
+import me.lian.sts.data.facility.FacilityLayoutRequest
+import me.lian.sts.data.platform.Platform
+import me.lian.sts.data.platform.PlatformList
+import me.lian.sts.data.platform.PlatformListRequest
+import me.lian.sts.data.register.RegisterRequest
+import me.lian.sts.data.system.SystemInformation
+import me.lian.sts.data.system.SystemInformationRequest
+import me.lian.sts.data.time.Time
+import me.lian.sts.data.time.TimeRequest
+import me.lian.sts.data.timetable.Timetable
+import me.lian.sts.data.timetable.TimetableRequest
+import me.lian.sts.data.timetable.TimetableResponse
+import me.lian.sts.data.traindetails.TrainDetails
+import me.lian.sts.data.traindetails.TrainDetailsRequest
+import me.lian.sts.data.trainlist.Train
+import me.lian.sts.data.trainlist.TrainList
+import me.lian.sts.data.trainlist.TrainListRequest
 import me.lian.sts.tcp.TcpConnection
 import me.lian.sts.exception.*
 
@@ -36,7 +55,7 @@ class BlockingSTS(
     val name: String,
     val author: String,
     val version: String,
-    val description: String
+    val description: String,
 ) {
 
     /**

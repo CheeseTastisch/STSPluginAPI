@@ -1,15 +1,9 @@
-package me.lian.sts.data
+package me.lian.sts.data.system
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import me.lian.sts.data.DataResponse
 import nl.adaptivity.xmlutil.serialization.XmlElement
-
-/**
- * A request to get information about the current system.
- */
-@Serializable
-@SerialName("anlageninfo")
-internal data object SystemInformationRequest : DataRequest
 
 /**
  * Information about the current system.
@@ -27,5 +21,5 @@ data class SystemInformation(
     @XmlElement(false) @SerialName("aid") val facilityId: Int,
     @XmlElement(false) @SerialName("name") val facilityName: String,
     @XmlElement(false) val region: String,
-    @XmlElement(false) val online: Boolean
+    @XmlElement(false) val online: Boolean,
 ) : DataResponse

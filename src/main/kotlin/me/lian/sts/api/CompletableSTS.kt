@@ -1,6 +1,14 @@
 package me.lian.sts.api
 
-import me.lian.sts.data.*
+import me.lian.sts.data.event.Event
+import me.lian.sts.data.event.EventType
+import me.lian.sts.data.facility.FacilityLayout
+import me.lian.sts.data.platform.Platform
+import me.lian.sts.data.system.SystemInformation
+import me.lian.sts.data.time.Time
+import me.lian.sts.data.timetable.Timetable
+import me.lian.sts.data.traindetails.TrainDetails
+import me.lian.sts.data.trainlist.Train
 import me.lian.sts.exception.*
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutorService
@@ -40,7 +48,7 @@ class CompletableSTS(
     val author: String,
     val version: String,
     val description: String,
-    val threads: Int = 4
+    val threads: Int = 4,
 ) {
 
     /**

@@ -1,7 +1,8 @@
-package me.lian.sts.data
+package me.lian.sts.data.register
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import me.lian.sts.data.DataRequest
 import nl.adaptivity.xmlutil.serialization.XmlElement
 
 /**
