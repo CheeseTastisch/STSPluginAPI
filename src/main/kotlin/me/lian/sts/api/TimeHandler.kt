@@ -1,6 +1,7 @@
 package me.lian.sts.api
 
-import me.lian.sts.data.Time
+import me.lian.sts.data.time.Time
+
 
 /**
  * The [TimeHandler] is used to get the time in the simulation without needing to make a request every time.
