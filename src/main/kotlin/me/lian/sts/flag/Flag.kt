@@ -5,7 +5,9 @@ package me.lian.sts.flag
  *
  * @property identifier The identifier of the flag.
  */
-sealed class Flag(val identifier: Char) {
+sealed class Flag(
+    @Suppress("MemberVisibilityCanBePrivate") val identifier: Char,
+) {
 
     companion object {
 
@@ -56,6 +58,7 @@ sealed class Flag(val identifier: Char) {
                             it.groups["firstInOut"]?.value?.toInt()!!,
                             it.groups["secondInOut"]?.value?.toInt()!!
                         )
+
                         else -> throw IllegalStateException("Unknown flag identifier: ${it.groups["identifier"]!!.value}")
                     }
                 }

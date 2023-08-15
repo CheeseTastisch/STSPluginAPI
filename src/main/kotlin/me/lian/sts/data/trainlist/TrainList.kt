@@ -11,4 +11,6 @@ import me.lian.sts.data.DataResponse
  */
 @Serializable
 @SerialName("zugliste")
-internal data class TrainList(val trains: List<Train>) : DataResponse
+internal data class TrainList(
+    val trains: List<Train>,
+) : DataResponse

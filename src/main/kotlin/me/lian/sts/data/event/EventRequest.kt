@@ -19,5 +19,5 @@ import nl.adaptivity.xmlutil.serialization.XmlElement
 @SerialName("ereignis")
 internal data class EventRequest(
     @XmlElement(false) @SerialName("zid") val trainId: Int,
-    @XmlElement(false) @SerialName("art") val type: EventType
+    @XmlElement(false) @SerialName("art") val type: EventType,
 ) : DataRequest

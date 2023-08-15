@@ -13,7 +13,10 @@ import me.lian.sts.data.time.Time
  * @property timeReceived The time the [time] was received.
  */
 @Suppress("unused", "MemberVisibilityCanBePrivate")
-class TimeHandler(private val time: Time, private val timeReceived: Long) {
+class TimeHandler(
+    private val time: Time,
+    private val timeReceived: Long,
+) {
 
     /**
      * The base time to calculate the time in the simulation.

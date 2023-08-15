@@ -48,7 +48,7 @@ class CompletableSTS(
     val author: String,
     val version: String,
     val description: String,
-    val threads: Int = 4
+    val threads: Int = 4,
 ) {
 
     /**

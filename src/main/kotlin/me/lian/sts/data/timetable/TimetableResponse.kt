@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import me.lian.sts.data.DataResponse
 import nl.adaptivity.xmlutil.serialization.XmlElement
+import java.time.format.DateTimeParseException
 
 /**
  * The response from the plugin api to a [TimetableRequest].

@@ -13,4 +13,6 @@ import me.lian.sts.data.DataResponse
  */
 @Serializable
 @SerialName("bahnsteigliste")
-data class PlatformList(val platforms: List<Platform>) : DataResponse
+data class PlatformList(
+    val platforms: List<Platform>,
+) : DataResponse

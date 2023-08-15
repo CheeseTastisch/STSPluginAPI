@@ -18,5 +18,5 @@ import nl.adaptivity.xmlutil.serialization.XmlElement
 data class Platform(
     @XmlElement(false) val name: String,
     @XmlElement(false) @SerialName("haltepunkt") val stop: Boolean,
-    val neighbours: List<NeighbourPlatform>
+    val neighbours: List<NeighbourPlatform>,
 )

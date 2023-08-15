@@ -21,5 +21,5 @@ data class SystemInformation(
     @XmlElement(false) @SerialName("aid") val facilityId: Int,
     @XmlElement(false) @SerialName("name") val facilityName: String,
     @XmlElement(false) val region: String,
-    @XmlElement(false) val online: Boolean
+    @XmlElement(false) val online: Boolean,
 ) : DataResponse

@@ -55,7 +55,7 @@ class BlockingSTS(
     val name: String,
     val author: String,
     val version: String,
-    val description: String
+    val description: String,
 ) {
 
     /**

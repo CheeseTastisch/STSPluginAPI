@@ -13,4 +13,6 @@ import nl.adaptivity.xmlutil.serialization.XmlElement
  */
 @Serializable
 @SerialName("n")
-data class NeighbourPlatform(@XmlElement(false) val name: String)
+data class NeighbourPlatform(
+    @XmlElement(false) val name: String,
+)
