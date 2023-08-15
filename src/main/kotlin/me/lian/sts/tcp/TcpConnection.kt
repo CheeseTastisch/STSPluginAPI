@@ -61,26 +61,26 @@ internal class TcpConnection(private val host: String) {
             val lineBuffer = mutableListOf<String>()
             try {
                 socket!!.getInputStream().bufferedReader().forEachLine {
-                    lineBuffer.add(it)
-
-                    // Check if all buffered lines combined can be parsed to a DataResponse, if so, parse it and notify all listeners.
-                    val response = try {
-                        XmlParser.parseResponse(lineBuffer.joinToString(""))
-                    } catch (ex: Exception) { // If an exception is thrown, the response is illegal.
-                        lineBuffer.clear()
-                        null
-                    }
-
-                    if (response != null) { // If the response is null, it is illegal or not complete yet.
-                        // If a response was parsed, notify all listeners and clear the buffer.
-                        lock.withLock {
-                            currentResponse = response
-                            newResponse.signalAll()
+                    if (it == "***EOR***") { // Protocol version 2 send an ***EOR*** after each response.
+                        // Check if all buffered lines combined can be parsed to a DataResponse, if so, parse it and notify all listeners.
+                        val response = try {
+                            XmlParser.parseResponse(lineBuffer.joinToString(""))
+                        } catch (ex: Exception) { // If an exception is thrown, the response is illegal.
+                            lineBuffer.clear()
+                            null
                         }
 
-                        listeners.forEach { it(response) }
-                        lineBuffer.clear()
-                    }
+                        if (response != null) { // If the response is null, it is illegal
+                            // If a response was parsed, notify all listeners and clear the buffer.
+                            lock.withLock {
+                                currentResponse = response
+                                newResponse.signalAll()
+                            }
+
+                            listeners.forEach { it(response) }
+                            lineBuffer.clear()
+                        }
+                    } else lineBuffer.add(it) // If not the end of response, add the line to the buffer.
                 }
             } catch (_: SocketException) {
                 disconnect()

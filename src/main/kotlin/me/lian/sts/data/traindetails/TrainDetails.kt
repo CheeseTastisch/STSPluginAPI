@@ -22,7 +22,6 @@ import nl.adaptivity.xmlutil.serialization.XmlElement
  * @property atPlatform Whether the train is at a [platform][track].
  * @property userText The text the user has set for this train or null if none was set.
  * @property userTextSender The name of the user who set the [userText] or null if none was set.
- * @property hint A hint for this train or null if none was set.
  */
 @Serializable
 @SerialName("zugdetails")
@@ -38,5 +37,4 @@ data class TrainDetails(
     @XmlElement(false) @SerialName("amgleis") val atPlatform: Boolean,
     @XmlElement(false) @XmlDefault("") @SerialName("usertext") val userText: String? = null,
     @XmlElement(false) @XmlDefault("") @SerialName("usertextsender") val userTextSender: String? = null,
-    @XmlElement(false) @XmlDefault("") @SerialName("hinweistext") val hint: String? = null,
 ) : DataResponse

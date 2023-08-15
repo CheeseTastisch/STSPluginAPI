@@ -2,6 +2,7 @@ package me.lian.sts.data.timetable
 
 import kotlinx.serialization.Serializable
 import me.lian.sts.flag.Flag
+import nl.adaptivity.xmlutil.serialization.XmlDefault
 import nl.adaptivity.xmlutil.serialization.XmlElement
 import nl.adaptivity.xmlutil.serialization.XmlSerialName
 import java.time.LocalTime
@@ -17,6 +18,7 @@ import java.time.format.DateTimeParseException
  * @property arrival The arrival time of the train.
  * @property departure The departure time of the train.
  * @property flags The flags of the stop.
+ * @property hint The hint that was set for the stop or null if no hint was set.
  */
 @Serializable
 @XmlSerialName("gleis")
@@ -26,6 +28,7 @@ internal data class TrainStopResponse(
     @XmlElement(false) @XmlSerialName("an") val arrival: String,
     @XmlElement(false) @XmlSerialName("ab") val departure: String,
     @XmlElement(false) @XmlSerialName("flags") val flags: String = "",
+    @XmlElement(false) @XmlDefault("") @XmlSerialName("hinweistext") val hint: String? = null,
 ) {
 
     /**
@@ -41,6 +44,7 @@ internal data class TrainStopResponse(
         arrival = LocalTime.parse(arrival),
         departure = LocalTime.parse(departure),
         flags = Flag.parse(flags),
+        hint = hint,
     )
 
 }

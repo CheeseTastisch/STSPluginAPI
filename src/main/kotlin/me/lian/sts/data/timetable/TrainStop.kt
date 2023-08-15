@@ -11,6 +11,7 @@ import java.time.LocalTime
  * @property arrival The arrival time of the train.
  * @property departure The departure time of the train.
  * @property flags The flags of the stop.
+ * @property hint The hint that was set for the stop or null if no hint was set.
  */
 data class TrainStop(
     val planned: String,
@@ -18,4 +19,5 @@ data class TrainStop(
     val arrival: LocalTime,
     val departure: LocalTime,
     val flags: List<Flag>,
+    val hint: String?,
 )

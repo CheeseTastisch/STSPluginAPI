@@ -8,7 +8,7 @@ import nl.adaptivity.xmlutil.serialization.XmlElement
  * A single [Platform] in the current facility.
  *
  * @property name The name of the [Platform].
- * @property stop Whether trains should stop at this [Platform].
+ * @property stop Whether this [Platform] is a halt point.
  * @property neighbours The list of [NeighbourPlatform]s, which are platforms connected to this [Platform].
  *
  * @see NeighbourPlatform

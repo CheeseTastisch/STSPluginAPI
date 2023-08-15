@@ -8,14 +8,14 @@ import nl.adaptivity.xmlutil.serialization.XmlElement
 /**
  * A shape is a part of a track, like a signal, entry point, etc.
  *
- * **The type is not documented, but it seems to be:**
+ * The following types are known:
  * - 2: Signals
  * - 3: Switches (pointing downwards)
  * - 4: Switches (pointing upwards)
  * - 5: Platforms
  * - 6: Entry points
  * - 7: Exit points
- * - 12: ??? (_often found with platforms, transition points and junctions, but no idea what it is_)
+ * - 12: Halt points
  *
  * @property type The type of the shape.
  * @property name The name of the shape.
