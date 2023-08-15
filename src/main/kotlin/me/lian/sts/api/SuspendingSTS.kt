@@ -90,6 +90,52 @@ class SuspendingSTS(
     suspend fun setDebug(debug: Boolean) = suspendingCall { blockingSTS.setDebug(debug) }
 
     /**
+     * Subscribes to a specific event on a specific train.
+     *
+     * @param trainId The id of the train.
+     * @param eventType The type of the event.
+     * @param callback The callback which will be called when the event occurs.
+     */
+    suspend fun onTrainEvent(trainId: Int, eventType: EventType, callback: (Event) -> Unit) =
+        suspendingCall { blockingSTS.onTrainEvent(trainId, eventType, callback) }
+
+    /**
+     * Subscribes to all events on a specific train.
+     *
+     * @param trainId The id of the train.
+     * @param callback The callback which will be called when the event occurs.
+     */
+    suspend fun onTrainEvent(trainId: Int, callback: (Event) -> Unit) =
+        suspendingCall { blockingSTS.onTrainEvent(trainId, callback) }
+
+    /**
+     * Gets the facility layout.
+     *
+     * @return The facility layout.
+     *
+     * @see FacilityLayout
+     */
+    suspend fun getFacilityLayout() = suspendingCall { blockingSTS.getFacilityLayout() }
+
+    /**
+     * Gets a list of all platforms on the current facility and their connections.
+     *
+     * @return The list of platforms.
+     *
+     * @see Platform
+     */
+    suspend fun getPlatforms() = suspendingCall { blockingSTS.getPlatforms() }
+
+    /**
+     * Gets information about the simulator.
+     *
+     * @return The simulator information.
+     *
+     * @see SystemInformation
+     */
+    suspend fun getSystemInformation() = suspendingCall { blockingSTS.getSystemInformation() }
+
+    /**
      * Request the time in game of the STS.
      *
      * This will always send a request to the plugin api.
@@ -116,22 +162,14 @@ class SuspendingSTS(
     suspend fun getTimeHandler() = suspendingCall { blockingSTS.getTimeHandler() }
 
     /**
-     * Gets information about the simulator.
+     * Gets the timetable of a specific train.
      *
-     * @return The simulator information.
+     * @param trainId The id of the train.
+     * @return The timetable.
      *
-     * @see SystemInformation
+     * @see Timetable
      */
-    suspend fun getSystemInformation() = suspendingCall { blockingSTS.getSystemInformation() }
-
-    /**
-     * Gets a list of all platforms on the current facility and their connections.
-     *
-     * @return The list of platforms.
-     *
-     * @see Platform
-     */
-    suspend fun getPlatforms() = suspendingCall { blockingSTS.getPlatforms() }
+    suspend fun getTimetable(trainId: Int) = suspendingCall { blockingSTS.getTimetable(trainId) }
 
     /**
      * Gets a list of all trains on the current facility.
@@ -151,43 +189,5 @@ class SuspendingSTS(
      * @see TrainDetails
      */
     suspend fun getTrainDetails(trainId: Int) = suspendingCall { blockingSTS.getTrainDetails(trainId) }
-
-    /**
-     * Gets the timetable of a specific train.
-     *
-     * @param trainId The id of the train.
-     * @return The timetable.
-     *
-     * @see Timetable
-     */
-    suspend fun getTimetable(trainId: Int) = suspendingCall { blockingSTS.getTimetable(trainId) }
-
-    /**
-     * Gets the facility layout.
-     *
-     * @return The facility layout.
-     *
-     * @see FacilityLayout
-     */
-    suspend fun getFacilityLayout() = suspendingCall { blockingSTS.getFacilityLayout() }
-
-    /**
-     * Subscribes to a specific event on a specific train.
-     *
-     * @param trainId The id of the train.
-     * @param eventType The type of the event.
-     * @param callback The callback which will be called when the event occurs.
-     */
-    suspend fun onTrainEvent(trainId: Int, eventType: EventType, callback: (Event) -> Unit) =
-        suspendingCall { blockingSTS.onTrainEvent(trainId, eventType, callback) }
-
-    /**
-     * Subscribes to all events on a specific train.
-     *
-     * @param trainId The id of the train.
-     * @param callback The callback which will be called when the event occurs.
-     */
-    suspend fun onTrainEvent(trainId: Int, callback: (Event) -> Unit) =
-        suspendingCall { blockingSTS.onTrainEvent(trainId, callback) }
 
 }

@@ -128,6 +128,81 @@ class BlockingSTS(
     }
 
     /**
+     * Subscribes to a specific event on a specific train.
+     *
+     * @param trainId The id of the train.
+     * @param eventType The type of the event.
+     * @param callback The callback which will be called when the event occurs.
+     */
+    fun onTrainEvent(trainId: Int, eventType: EventType, callback: (Event) -> Unit) {
+        connection.send(EventRequest(trainId, eventType))
+        connection.onReceive { if (it is Event && it.trainId == trainId && it.type == eventType) callback(it) }
+    }
+
+    /**
+     * Subscribes to all events on a specific train.
+     *
+     * @param trainId The id of the train.
+     * @param callback The callback which will be called when the event occurs.
+     */
+    fun onTrainEvent(trainId: Int, callback: (Event) -> Unit) {
+        EventType.entries.forEach { connection.send(EventRequest(trainId, it)) }
+        connection.onReceive { if (it is Event && it.trainId == trainId) callback(it) }
+    }
+
+    /**
+     * Gets the facility layout.
+     *
+     * @return The facility layout.
+     *
+     * @see FacilityLayout
+     */
+    fun getFacilityLayout(): FacilityLayout {
+        connection.send(FacilityLayoutRequest)
+
+        val response = connection.receive { it is Status || it is FacilityLayout }
+        return when (response) {
+            is Status -> handleStatus(response)
+            else -> response as FacilityLayout
+        }
+    }
+
+    /**
+     * Gets a list of all platforms on the current facility and their connections.
+     *
+     * @return The list of platforms.
+     *
+     * @see Platform
+     */
+    fun getPlatforms(): List<Platform> {
+        connection.send(PlatformListRequest)
+
+        val response = connection.receive { it is Status || it is PlatformList }
+        return when (response) {
+            is Status -> handleStatus(response)
+            else -> (response as PlatformList).platforms
+        }
+    }
+
+    /**
+     * Gets information about the simulator.
+     *
+     * @return The simulator information.
+     *
+     * @see SystemInformation
+     */
+    fun getSystemInformation(): SystemInformation {
+        connection.send(SystemInformationRequest)
+
+        val response = connection.receive { it is Status || it is SystemInformation }
+        return when (response) {
+            is Status -> handleStatus(response)
+            else -> response as SystemInformation
+        }
+    }
+
+
+    /**
      * Request the time in game of the STS.
      *
      * This will always send a request to the plugin api.
@@ -166,36 +241,20 @@ class BlockingSTS(
     }
 
     /**
-     * Gets information about the simulator.
+     * Gets the timetable of a specific train.
      *
-     * @return The simulator information.
+     * @param trainId The id of the train.
+     * @return The timetable.
      *
-     * @see SystemInformation
+     * @see Timetable
      */
-    fun getSystemInformation(): SystemInformation {
-        connection.send(SystemInformationRequest)
+    fun getTimetable(trainId: Int): Timetable {
+        connection.send(TimetableRequest(trainId))
 
-        val response = connection.receive { it is Status || it is SystemInformation }
+        val response = connection.receive { it is Status || (it is TimetableResponse && it.trainId == trainId) }
         return when (response) {
             is Status -> handleStatus(response)
-            else -> response as SystemInformation
-        }
-    }
-
-    /**
-     * Gets a list of all platforms on the current facility and their connections.
-     *
-     * @return The list of platforms.
-     *
-     * @see Platform
-     */
-    fun getPlatforms(): List<Platform> {
-        connection.send(PlatformListRequest)
-
-        val response = connection.receive { it is Status || it is PlatformList }
-        return when (response) {
-            is Status -> handleStatus(response)
-            else -> (response as PlatformList).platforms
+            else -> (response as TimetableResponse).toTimetable()
         }
     }
 
@@ -232,64 +291,6 @@ class BlockingSTS(
             is Status -> handleStatus(response)
             else -> response as TrainDetails
         }
-    }
-
-    /**
-     * Gets the timetable of a specific train.
-     *
-     * @param trainId The id of the train.
-     * @return The timetable.
-     *
-     * @see Timetable
-     */
-    fun getTimetable(trainId: Int): Timetable {
-        connection.send(TimetableRequest(trainId))
-
-        val response = connection.receive { it is Status || (it is TimetableResponse && it.trainId == trainId) }
-        return when (response) {
-            is Status -> handleStatus(response)
-            else -> (response as TimetableResponse).toTimetable()
-        }
-    }
-
-    /**
-     * Gets the facility layout.
-     *
-     * @return The facility layout.
-     *
-     * @see FacilityLayout
-     */
-    fun getFacilityLayout(): FacilityLayout {
-        connection.send(FacilityLayoutRequest)
-
-        val response = connection.receive { it is Status || it is FacilityLayout }
-        return when (response) {
-            is Status -> handleStatus(response)
-            else -> response as FacilityLayout
-        }
-    }
-
-    /**
-     * Subscribes to a specific event on a specific train.
-     *
-     * @param trainId The id of the train.
-     * @param eventType The type of the event.
-     * @param callback The callback which will be called when the event occurs.
-     */
-    fun onTrainEvent(trainId: Int, eventType: EventType, callback: (Event) -> Unit) {
-        connection.send(EventRequest(trainId, eventType))
-        connection.onReceive { if (it is Event && it.trainId == trainId && it.type == eventType) callback(it) }
-    }
-
-    /**
-     * Subscribes to all events on a specific train.
-     *
-     * @param trainId The id of the train.
-     * @param callback The callback which will be called when the event occurs.
-     */
-    fun onTrainEvent(trainId: Int, callback: (Event) -> Unit) {
-        EventType.entries.forEach { connection.send(EventRequest(trainId, it)) }
-        connection.onReceive { if (it is Event && it.trainId == trainId) callback(it) }
     }
 
     /**

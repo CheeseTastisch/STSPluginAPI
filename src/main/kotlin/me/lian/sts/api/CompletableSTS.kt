@@ -130,6 +130,52 @@ class CompletableSTS(
     fun setDebug(debug: Boolean) = asyncCall { blockingSTS.setDebug(debug) }
 
     /**
+     * Subscribes to a specific event on a specific train.
+     *
+     * @param trainId The id of the train.
+     * @param eventType The type of the event.
+     * @param callback The callback which will be called when the event occurs.
+     */
+    fun onTrainEvent(trainId: Int, eventType: EventType, callback: (Event) -> Unit) =
+        pool.execute { blockingSTS.onTrainEvent(trainId, eventType, callback) }
+
+    /**
+     * Subscribes to all events on a specific train.
+     *
+     * @param trainId The id of the train.
+     * @param callback The callback which will be called when the event occurs.
+     */
+    fun onTrainEvent(trainId: Int, callback: (Event) -> Unit) =
+        pool.execute { blockingSTS.onTrainEvent(trainId, callback) }
+
+    /**
+     * Gets the facility layout.
+     *
+     * @return The facility layout.
+     *
+     * @see FacilityLayout
+     */
+    fun getFacilityLayout() = asyncCall { blockingSTS.getFacilityLayout() }
+
+    /**
+     * Gets a list of all platforms on the current facility and their connections.
+     *
+     * @return The list of platforms.
+     *
+     * @see Platform
+     */
+    fun getPlatforms() = asyncCall { blockingSTS.getPlatforms() }
+
+    /**
+     * Gets information about the simulator.
+     *
+     * @return The simulator information.
+     *
+     * @see SystemInformation
+     */
+    fun getSystemInformation() = asyncCall { blockingSTS.getSystemInformation() }
+
+    /**
      * Request the time in game of the STS.
      *
      * This will always send a request to the plugin api.
@@ -156,22 +202,14 @@ class CompletableSTS(
     fun getTimeHandler() = asyncCall { blockingSTS.getTimeHandler() }
 
     /**
-     * Gets information about the simulator.
+     * Gets the timetable of a specific train.
      *
-     * @return The simulator information.
+     * @param trainId The id of the train.
+     * @return The timetable.
      *
-     * @see SystemInformation
+     * @see Timetable
      */
-    fun getSystemInformation() = asyncCall { blockingSTS.getSystemInformation() }
-
-    /**
-     * Gets a list of all platforms on the current facility and their connections.
-     *
-     * @return The list of platforms.
-     *
-     * @see Platform
-     */
-    fun getPlatforms() = asyncCall { blockingSTS.getPlatforms() }
+    fun getTimetable(trainId: Int) = asyncCall { blockingSTS.getTimetable(trainId) }
 
     /**
      * Gets a list of all trains on the current facility.
@@ -191,43 +229,4 @@ class CompletableSTS(
      * @see TrainDetails
      */
     fun getTrainDetails(trainId: Int) = asyncCall { blockingSTS.getTrainDetails(trainId) }
-
-    /**
-     * Gets the timetable of a specific train.
-     *
-     * @param trainId The id of the train.
-     * @return The timetable.
-     *
-     * @see Timetable
-     */
-    fun getTimetable(trainId: Int) = asyncCall { blockingSTS.getTimetable(trainId) }
-
-    /**
-     * Gets the facility layout.
-     *
-     * @return The facility layout.
-     *
-     * @see FacilityLayout
-     */
-    fun getFacilityLayout() = asyncCall { blockingSTS.getFacilityLayout() }
-
-    /**
-     * Subscribes to a specific event on a specific train.
-     *
-     * @param trainId The id of the train.
-     * @param eventType The type of the event.
-     * @param callback The callback which will be called when the event occurs.
-     */
-    fun onTrainEvent(trainId: Int, eventType: EventType, callback: (Event) -> Unit) =
-        pool.execute { blockingSTS.onTrainEvent(trainId, eventType, callback) }
-
-    /**
-     * Subscribes to all events on a specific train.
-     *
-     * @param trainId The id of the train.
-     * @param callback The callback which will be called when the event occurs.
-     */
-    fun onTrainEvent(trainId: Int, callback: (Event) -> Unit) =
-        pool.execute { blockingSTS.onTrainEvent(trainId, callback) }
-
 }
