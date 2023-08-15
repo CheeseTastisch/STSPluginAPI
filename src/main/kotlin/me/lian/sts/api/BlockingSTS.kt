@@ -7,6 +7,8 @@ import me.lian.sts.data.event.EventRequest
 import me.lian.sts.data.event.EventType
 import me.lian.sts.data.facility.FacilityLayout
 import me.lian.sts.data.facility.FacilityLayoutRequest
+import me.lian.sts.data.heat.Heat
+import me.lian.sts.data.heat.HeatRequest
 import me.lian.sts.data.platform.Platform
 import me.lian.sts.data.platform.PlatformList
 import me.lian.sts.data.platform.PlatformListRequest
@@ -164,6 +166,23 @@ class BlockingSTS(
         return when (response) {
             is Status -> handleStatus(response)
             else -> response as FacilityLayout
+        }
+    }
+
+    /**
+     * Gets the current heat of the simulator.
+     *
+     * @return The current heat.
+     *
+     * @see Heat
+     */
+    fun getHeat(): Long {
+        connection.send(HeatRequest)
+
+        val response = connection.receive { it is Status || it is Heat }
+        return when (response) {
+            is Status -> handleStatus(response)
+            else -> (response as Heat).heat
         }
     }
 

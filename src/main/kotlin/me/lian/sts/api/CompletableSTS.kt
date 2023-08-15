@@ -5,6 +5,7 @@ import me.lian.sts.data.debug.DebugRequest
 import me.lian.sts.data.event.Event
 import me.lian.sts.data.event.EventType
 import me.lian.sts.data.facility.FacilityLayout
+import me.lian.sts.data.heat.Heat
 import me.lian.sts.data.platform.Platform
 import me.lian.sts.data.system.SystemInformation
 import me.lian.sts.data.time.Time
@@ -156,6 +157,15 @@ class CompletableSTS(
      * @see FacilityLayout
      */
     fun getFacilityLayout() = asyncCall { blockingSTS.getFacilityLayout() }
+
+    /**
+     * Gets the current heat of the simulator.
+     *
+     * @return The current heat.
+     *
+     * @see Heat
+     */
+    fun getHeat() = asyncCall { blockingSTS.getHeat() }
 
     /**
      * Gets a list of all platforms on the current facility and their connections.

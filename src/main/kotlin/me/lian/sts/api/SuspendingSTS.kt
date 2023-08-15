@@ -4,6 +4,7 @@ import kotlinx.coroutines.*
 import me.lian.sts.data.event.Event
 import me.lian.sts.data.event.EventType
 import me.lian.sts.data.facility.FacilityLayout
+import me.lian.sts.data.heat.Heat
 import me.lian.sts.data.platform.Platform
 import me.lian.sts.data.system.SystemInformation
 import me.lian.sts.data.time.Time
@@ -116,6 +117,15 @@ class SuspendingSTS(
      * @see FacilityLayout
      */
     suspend fun getFacilityLayout() = suspendingCall { blockingSTS.getFacilityLayout() }
+
+    /**
+     * Gets the current heat of the simulator.
+     *
+     * @return The current heat.
+     *
+     * @see Heat
+     */
+    suspend fun getHeat() = suspendingCall { blockingSTS.getHeat() }
 
     /**
      * Gets a list of all platforms on the current facility and their connections.
